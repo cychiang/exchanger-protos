@@ -3,25 +3,26 @@ syntax = "proto3";
 package openexchanger;
 
 service OpenExchanger {
-    rpc GetLatest(LatestInput) returns (LatestOutput);
+    rpc GetOxrLatest(OxrInput) returns (stream GrpcRate);
+    rpc GetOxrHistorical(OxrInput) returns (stream GrpcRate);
+    rpc GetOxrCurrencies(OxrInput) returns (stream GrpcCurrency);
 }
 
-message LatestInput {
+message OxrInput {
     string Base = 1;
     string Symbols = 2;
-    bool Prettyprint = 3;
-    bool ShowAlternative = 4;
+    string Date = 3;
+    bool Prettyprint = 4;
+    bool ShowAlternative = 5;
+    bool ShowInactive = 6;
 }
 
-message Rate {
-    string Name = 1;
-    float Value = 2;
+message GrpcRate {
+    string Currency = 1;
+    float Ratio = 2;
 }
 
-message LatestOutput {
-    string Disclaimer = 1;
-    string License = 2;
-    int64 Timestamp = 3;
-    string Base = 4;
-    repeated Rate Rates = 5;
+message GrpcCurrency {
+    string Currency = 1;
+    string Name = 2;
 }
