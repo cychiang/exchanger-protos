@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package oxr;
+
+service oxr {
+    rpc Get(OxrInput) returns (OxrOutput);
+}
+
+message OxrInput {
+    // select use which api will be used
+    string api = 1;
+    string Base = 2;
+    string Symbols = 3;
+    string Date = 4;
+    string Start = 5;
+    string End = 6;
+    string Value = 7;
+    string From = 8;
+    string To = 9;
+    string StartTime = 10;
+    string Period = 11;
+    bool Prettyprint = 12;
+    bool ShowAlternative = 13;
+    bool ShowInactive = 14;
+}
+
+message OxrOutput {
+    // status code
+    int32 status = 1;
+    // return json string to client
+    string message = 2;
+}
